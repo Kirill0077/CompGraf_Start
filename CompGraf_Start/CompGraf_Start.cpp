@@ -82,6 +82,8 @@ int main()
     glfwMakeContextCurrent(window);
     //glLoadIdentity();
     /* Loop until the user closes the window */
+    int k = 1;
+    float speedrot = 0.0001;
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
@@ -90,15 +92,31 @@ int main()
    
         glClear(GL_COLOR_BUFFER_BIT);
         
-        drawShesternya(0.39, 0.42, 0.45, 0.31, 0.1, 0.1, 0.1);
-     
-       
-        drawShesternya(-0.4, -0.34, 0.35, 0.25, 0.5, 1, 1);
- 
-        //glPushMatrix();
-        drawShesternya(-0.5, 0.4, 0.3, 0.22, 1, 0.5, 0);
-        //glRotatef(0.01, 0, 0, 1);
-        //glPopMatrix();
+        glPushMatrix();
+        glTranslatef(0.38, 0.37, 0);
+        glRotatef(speedrot*k, 0, 0,1);
+        drawShesternya(0, 0, 0.45, 0.31, 0.1, 0.1, 0.1);
+        glPopMatrix();
+        glPushMatrix();
+        glTranslatef(-0.395, -0.34, 0);
+        glRotatef(speedrot * k, 0, 0, 1);
+        drawShesternya(0, 0, 0.35, 0.25, 0.5, 1, 1);
+        glPopMatrix();
+        glPushMatrix();
+        glTranslatef(-0.5, 0.4, 0);
+        glRotatef(speedrot *(-k), 0, 0, 1);
+        drawShesternya(0, 0, 0.3, 0.22, 1, 0.5, 0);
+        drawCircle(0,0,0.25,1,0.5,0);
+        glPopMatrix();
+        if (speedrot * k >= 360)
+            k = 0;
+        k += 1;
+        if (speedrot<0.5)
+        {
+            speedrot += 0.00002;
+        }
+        
+        
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
 
